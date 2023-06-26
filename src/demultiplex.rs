@@ -658,6 +658,10 @@ impl<Ctx: DemuxContext> Demultiplex<Ctx> {
                 pk = if let Some(Some(p)) = itr.next() {
                     p
                 } else {
+                    // 65 is the header for payload_unit_start_indicator
+                    let packet_force_end_buf: [u8; 4] = [packet::Packet::SYNC_BYTE, 65, 0, 0];
+                    let packet = packet::Packet::force_new(&packet_force_end_buf);
+                    this_proc.consume(ctx, &packet);
                     break 'outer;
                 };
                 if pk.pid() != this_pid {

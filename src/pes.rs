@@ -118,6 +118,9 @@ where
         if packet.payload_unit_start_indicator() {
             if self.state == PesState::Started {
                 self.stream_consumer.end_packet(ctx);
+            } else if self.state == PesState::IgnoreRest {
+                self.stream_consumer.end_packet(ctx);
+                self.state = PesState::Started;
             } else {
                 // we might be in PesState::IgnoreRest, in which case we don't want to signal
                 // a stream_start() to the consumer, which has already received stream_start()

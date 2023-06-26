@@ -551,6 +551,13 @@ impl<'buf> Packet<'buf> {
         }
     }
 
+    /// *Use with caution !!!*
+    /// Use only to create a packet with hardcoded values for a
+    /// very specific purpose
+    pub fn force_new(buf: &'buf [u8]) -> Packet<'buf> {
+        Packet { buf }
+    }
+
     /// *May* have been set if some previous processing of this TS data detected at least
     /// 1 uncorrectable bit error in this TS packet.
     #[inline]
