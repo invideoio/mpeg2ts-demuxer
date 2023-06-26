@@ -14,6 +14,10 @@ This crate,
  - implements a low-level state machine that recognises the structural elements of Transport Stream syntax
  - provides traits that you should implement to define your application-specific processing of the contained data.
 
+## INVIDEO's IMPL :-
+
+This version also takes in consideration the end_packet callback for the lsat packet
+
 # Example
 
 Dump H264 payload data as hex.
